@@ -8,10 +8,11 @@
 
 enum class GaussSolutionType
 {
-    kDefault,
-    kPartialSelection,
-    kFullSelection
+    kSchemeOfTheOnlySolution,
+    kSchemeOfPartialSelection,
+    kSchemeOfFullSelection
 };
+
 
 double **GetSimilarMatrixToManipulate(const std::vector<std::vector<double>> &);
 
@@ -21,7 +22,7 @@ std::vector<double> GetSolutionByBackSubstitution(double **, const std::size_t);
 
 std::vector<double> SolveByGauss(const std::vector<std::vector<double>> &,
                                  const std::vector<double> &,
-                                 const GaussSolutionType & = GaussSolutionType::kDefault);
+                                 const GaussSolutionType & = GaussSolutionType::kSchemeOfTheOnlySolution);
 
 void FreeMemoryFromTemporaryMatrix(double **, const std::size_t);
 
