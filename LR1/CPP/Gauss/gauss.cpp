@@ -1,8 +1,8 @@
 #include "gauss.hpp"
 
 
-double **GetSimilarMatrixToManipulate(const std::vector<std::vector<double>> &main_coefficients,
-                                      const std::vector<double> &free_coefficients)
+double **GetFullSystemMatrix(const std::vector<std::vector<double>> &main_coefficients,
+                             const std::vector<double> &free_coefficients)
 {
     const auto rows{main_coefficients.size()};
 
@@ -92,7 +92,7 @@ std::vector<double> SolveByGauss(const std::vector<std::vector<double>> &main_co
                                  const GaussSolutionType &solution_type)
 {
     const std::size_t variables_count{main_coefficients.size()};
-    auto to_triangulate{GetSimilarMatrixToManipulate(main_coefficients, free_coefficients)};
+    auto to_triangulate{GetFullSystemMatrix(main_coefficients, free_coefficients)};
 
     Triangulate(to_triangulate, variables_count, solution_type);
     Print((const double **) to_triangulate, variables_count);

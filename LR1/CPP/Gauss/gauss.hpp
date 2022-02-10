@@ -14,7 +14,7 @@ enum class GaussSolutionType
 };
 
 
-double **GetSimilarMatrixToManipulate(const std::vector<std::vector<double>> &);
+double **GetFullSystemMatrix(const std::vector<std::vector<double>> &, const std::vector<double> &);
 
 void Triangulate(double **, const std::size_t, const GaussSolutionType &);
 
