@@ -6,13 +6,22 @@
 #include <iomanip>
 
 
+enum class GaussSolutionType
+{
+    kDefault,
+    kPartialSelection,
+    kFullSelection
+};
+
 double **GetSimilarMatrixToManipulate(const std::vector<std::vector<double>> &);
 
-void Triangulate(double **, const std::size_t);
+void Triangulate(double **, const std::size_t, const GaussSolutionType &);
 
 std::vector<double> GetSolutionByBackSubstitution(double **, const std::size_t);
 
-std::vector<double> SolveByGauss(const std::vector<std::vector<double>> &, const std::vector<double> &);
+std::vector<double> SolveByGauss(const std::vector<std::vector<double>> &,
+                                 const std::vector<double> &,
+                                 const GaussSolutionType & = GaussSolutionType::kDefault);
 
 void FreeMemoryFromTemporaryMatrix(double **, const std::size_t);
 

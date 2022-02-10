@@ -17,5 +17,7 @@ std::vector<ValueType> &operator+=(std::vector<ValueType> &, const std::vector<V
 template<typename ValueType>
 std::vector<ValueType> operator+(const std::vector<ValueType> &, const std::vector<ValueType> &);
 
+constexpr int GetNumberOfSignsAfterDot(const double);
+
 
 #endif //LR1_UTILS_HPP

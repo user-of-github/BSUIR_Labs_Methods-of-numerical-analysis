@@ -7,14 +7,19 @@
 
 int main()
 {
+    const auto accuracy{GetNumberOfSignsAfterDot(kAccuracy)};
     const auto coefficients{kMatrixC * kOption + kMatrixD};
     const auto &free_coefficients{kVectorB};
 
-    const auto response{SolveByGauss(coefficients, free_coefficients)};
+    const auto response{SolveByGauss(
+            coefficients,
+            free_coefficients,
+            GaussSolutionType::kFullSelection
+    )};
 
     std::cout << "Solution: ";
     for (const auto &item : response)
-        std::cout << item << ' ';
+        std::cout << std::setprecision(accuracy) << item << ' ';
 
     return 0;
 }
