@@ -62,8 +62,8 @@ void Triangulate(double **full_matrix, const std::size_t rows, const GaussSoluti
         }
         else if (solution_type == GaussSolutionType::kSchemeOfFullSelection)
         {
-            const auto row_with_max_first_item{find_row_with_max_matrix_element(row)};
-            swap_rows(row_with_max_first_item, row);
+            const auto row_with_max_left_matrix_item{find_row_with_max_matrix_element(row)};
+            swap_rows(row_with_max_left_matrix_item, row);
         }
 
         for (std::size_t lower_row = row + 1; lower_row < rows; ++lower_row)
