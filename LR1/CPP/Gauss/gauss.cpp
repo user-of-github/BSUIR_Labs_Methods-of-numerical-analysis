@@ -35,7 +35,7 @@ void Triangulate(double **full_matrix, const std::size_t rows, const GaussSoluti
     const auto find_row_with_max_main_element{[&](const std::size_t from) -> std::size_t {
         auto response{from};
         for (std::size_t row = from + 1; row < rows; ++row)
-            if (std::abs(full_matrix[row][from]) > std::abs(full_matrix[response][row]))
+            if (std::abs(full_matrix[row][from]) > std::abs(full_matrix[response][from]))
                 response = row;
         return response;
     }};

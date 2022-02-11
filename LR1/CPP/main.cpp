@@ -14,7 +14,7 @@ int main()
     const auto response{SolveByGauss(
             coefficients,
             free_coefficients,
-            GaussSolutionType::kSchemeOfFullSelection
+            GaussSolutionType::kSchemeOfTheOnlySolution
     )};
 
     std::cout << "Solution: ";
