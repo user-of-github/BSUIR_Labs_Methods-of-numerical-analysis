@@ -21,3 +21,13 @@ def sum_two_matrices(first: list, second: list) -> list:
             response[row][col] += second[row][col]
 
     return response
+
+
+def get_accuracy(accuracy: float) -> int:
+    accuracy_copy = accuracy
+    response = 0
+    while accuracy_copy < 1:
+        accuracy_copy *= 10
+        response += 1
+
+    return response + 1

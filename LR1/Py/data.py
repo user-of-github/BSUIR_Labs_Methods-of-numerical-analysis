@@ -1,3 +1,6 @@
+from utils import get_accuracy
+
+
 MATRIX_C = [[0.2, 0, 0.2, 0, 0],
             [0, 0.2, 0, 0.2, 0],
             [0.2, 0, 0.2, 0, 0.2],
@@ -13,3 +16,7 @@ MATRIX_D = [[2.33, 0.81, 0.67, 0.92, -0.53],
 VECTOR_B = [4.2, 4.2, 4.2, 4.2, 4.2]
 
 OPTION = 6
+
+ACCURACY = 0.0001
+
+SIGNS_AFTER_DOT = get_accuracy(ACCURACY)
