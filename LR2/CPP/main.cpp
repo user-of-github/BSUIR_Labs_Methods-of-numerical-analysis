@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "./Utils/utils.hpp"
 #include "./Utils/utils.cpp"
 #include "./Data/data.h"
@@ -8,9 +9,19 @@
 int main()
 {
     const auto main_coefficients{kMatrixC * kOption + kMatrixD};
-    const auto free_coefficients{kVectorB};
+    const auto &free_coefficients{kVectorB};
+    const auto &initial_values{kInitialValues};
+    const auto &epsilon{kAccuracy};
 
-    const auto response {SolveBySimpleIterations(main_coefficients, free_coefficients)};
+    const auto[solution, number_of_iterations]{SolveBySimpleIterations(
+            main_coefficients,
+            free_coefficients,
+            epsilon,
+            initial_values
+    )};
+
+    std::cout << "Solution: " << std::setprecision(6) << solution;
+    std::cout << "Used " << number_of_iterations << " iterations";
 
     return 0;
 }

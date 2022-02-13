@@ -1,3 +1,5 @@
+#pragma once
+
 #include "utils.hpp"
 
 
@@ -41,17 +43,6 @@ std::vector<ValueType> operator+(const std::vector<ValueType> &nums1, const std:
     return response;
 }
 
-constexpr int GetNumberOfSignsAfterDot(const double accuracy)
-{
-    auto response{1};
-    auto copy_accuracy{accuracy};
-    while (copy_accuracy < 1)
-    {
-        ++response;
-        copy_accuracy *= 10;
-    }
-    return response;
-}
 
 template<typename ValueType>
 std::ostream &operator<<(std::ostream &stream, const std::vector<ValueType> &object)
