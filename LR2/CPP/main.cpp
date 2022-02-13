@@ -17,7 +17,8 @@ int main()
             main_coefficients,
             free_coefficients,
             epsilon,
-            initial_values
+            initial_values,
+            SolvingType::kSeidel
     )};
 
     std::cout << "Solution: " << std::setprecision(6) << solution;

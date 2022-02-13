@@ -76,7 +76,8 @@ std::pair<std::vector<double>, std::size_t>
 SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficients,
                         const std::vector<double> &free_coefficients,
                         const double epsilon,
-                        const std::vector<double> &initial_values)
+                        const std::vector<double> &initial_values,
+                        const SolvingType &type)
 {
     if (!CheckConvergence(main_coefficients))
         throw std::invalid_argument("System of linear algebraic equations does not converge");
@@ -93,16 +94,17 @@ SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficient
     });
 
     const auto count_variable_value([](const std::vector<double> &variable_expression,
-                                       const std::vector<double> &previous_variables_set) -> double {
+                                       const std::vector<double> &variables_set) -> double {
         double response{variable_expression.at(0)};
         for (std::size_t counter = 1; counter < variable_expression.size(); ++counter)
-            response += variable_expression.at(counter) * previous_variables_set.at(counter - 1);
+            response += variable_expression.at(counter) * variables_set.at(counter - 1);
         return response;
     });
 
     auto previous_iteration{initial_values}; // предыдущая i-я итерация
     auto current_iteration{initial_values}; // текущая i+1-я итерация
-    const auto variables_expressions{ExpressMainVariables(main_coefficients, free_coefficients)}; // выраженные переменные с главной диагонали
+    const auto variables_expressions{
+            ExpressMainVariables(main_coefficients, free_coefficients)}; // выраженные переменные с главной диагонали
 
     std::size_t iterations_count{};
     do
@@ -111,7 +113,10 @@ SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficient
         copy_vectors(current_iteration, previous_iteration);
         for (std::size_t counter = 0; const auto &variable_expression : variables_expressions)
         {
-            current_iteration.at(counter) = count_variable_value(variable_expression, previous_iteration);
+            current_iteration.at(counter) = count_variable_value(
+                    variable_expression,
+                    type == SolvingType::kSimpleIterations ? previous_iteration : current_iteration
+            );
             ++counter;
         }
     } while (!check_error(current_iteration, previous_iteration, epsilon));
