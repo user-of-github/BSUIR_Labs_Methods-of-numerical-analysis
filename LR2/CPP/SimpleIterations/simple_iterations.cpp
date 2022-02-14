@@ -106,7 +106,7 @@ SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficient
     const auto variables_expressions{
             ExpressMainVariables(main_coefficients, free_coefficients)}; // выраженные переменные с главной диагонали
 
-    std::size_t iterations_count{};
+    std::size_t iterations_count{0};
     do
     {
         ++iterations_count;

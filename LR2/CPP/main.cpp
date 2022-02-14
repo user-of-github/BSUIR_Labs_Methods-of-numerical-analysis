@@ -13,12 +13,14 @@ int main()
     const auto &initial_values{kInitialValues};
     const auto &epsilon{kAccuracy};
 
+    std::cout << main_coefficients << '\n';
+
     const auto[solution, number_of_iterations]{SolveBySimpleIterations(
             main_coefficients,
             free_coefficients,
             epsilon,
             initial_values,
-            SolvingType::kSeidel
+            SolvingType::kSimpleIterations
     )};
 
     std::cout << "Solution: " << std::setprecision(6) << solution;
