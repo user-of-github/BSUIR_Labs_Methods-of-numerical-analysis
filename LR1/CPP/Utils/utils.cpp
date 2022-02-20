@@ -65,7 +65,7 @@ std::vector<ValueType> operator-(const std::vector<ValueType> &nums1, const std:
 
 constexpr int GetNumberOfSignsAfterDot(const double accuracy)
 {
-    auto response {1};
+    auto response{1};
     auto copy_accuracy{accuracy};
     while (copy_accuracy < 1)
     {
@@ -82,7 +82,7 @@ std::ostream &operator<<(std::ostream &stream, const std::vector<ValueType> &obj
     if constexpr (std::is_same_v<ValueType, double>)
     {
         for (const auto &item : object)
-            stream << std::setw(4) << std::fixed <<std::setprecision(4) << std::left << item << ' ';
+            stream << std::setw(4) << std::fixed << std::setprecision(4) << std::left << item << ' ';
         stream << '\n';
     }
     else if constexpr(std::is_same_v<ValueType, std::vector<double>>)
@@ -99,3 +99,4 @@ std::ostream &operator<<(std::ostream &stream, const std::vector<ValueType> &obj
 
     return stream;
 }
+

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef LR1_GAUSS_HPP
 #define LR1_GAUSS_HPP
 

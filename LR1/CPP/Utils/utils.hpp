@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef LR1_UTILS_HPP
 #define LR1_UTILS_HPP
 
@@ -5,6 +7,8 @@
 #include <stdexcept>
 #include <ostream>
 #include <iomanip>
+#include <numeric>
+#include <cmath>
 
 
 template<typename ValueType>
@@ -29,5 +33,7 @@ constexpr int GetNumberOfSignsAfterDot(const double);
 
 template<typename ValueType>
 std::ostream &operator<<(std::ostream &, const std::vector<ValueType> &);
+
+
 
 #endif //LR1_UTILS_HPP
