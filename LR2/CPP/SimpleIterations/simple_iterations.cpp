@@ -23,20 +23,6 @@ bool CheckConvergence(const std::vector<std::vector<double>> &main_coefficients)
 }
 
 
-std::vector<std::vector<double>> GetFullSystemMatrix(const std::vector<std::vector<double>> &main_coefficients,
-                                                     const std::vector<double> &free_coefficients)
-{
-    std::vector<std::vector<double>> response{};
-    response.reserve(main_coefficients.size());
-    for (const auto &row : main_coefficients)
-        response.emplace_back(row);
-
-    for (std::size_t row = 0; row < main_coefficients.size(); ++row)
-        response.at(row).emplace_back(free_coefficients.at(row));
-
-    return response;
-}
-
 std::vector<std::vector<double>> ExpressMainVariables(const std::vector<std::vector<double>> &main_coefficients,
                                                       const std::vector<double> &free_coefficients)
 {
