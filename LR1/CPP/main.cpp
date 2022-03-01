@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cfloat>
 #include "./Utils/utils.hpp"
 #include "./Data/data.hpp"
 #include "./Gauss/gauss.hpp"
@@ -13,6 +14,7 @@ int main()
     auto coefficients{kMatrixC * kOption + kMatrixD};
     const auto &free_coefficients{kVectorB};
 
+
     try
     {
         std::cout << "Scheme of the only division: \n";
@@ -26,7 +28,6 @@ int main()
         std::cout << "Scheme of full selection: \n";
         const auto full_select{SolveByGauss(coefficients, free_coefficients, GaussSolvingType::kSchemeOfFullSelection)};
         std::cout << std::setprecision(accuracy) << "Roots: " << full_select << '\n';
-
 
 
         coefficients.at(1).at(2) += 0.01;
