@@ -29,11 +29,11 @@ std::vector<ValueType> operator+(const std::vector<ValueType> &, const std::vect
 template<typename ValueType>
 std::vector<ValueType> operator-(const std::vector<ValueType> &, const std::vector<ValueType> &);
 
-constexpr int GetNumberOfSignsAfterDot(const double);
 
 template<typename ValueType>
 std::ostream &operator<<(std::ostream &, const std::vector<ValueType> &);
 
+//double GetNorm(const std::vector<double> &);
 
 
 #endif //LR1_UTILS_HPP

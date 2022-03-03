@@ -82,7 +82,7 @@ std::ostream &operator<<(std::ostream &stream, const std::vector<ValueType> &obj
     if constexpr (std::is_same_v<ValueType, double>)
     {
         for (const auto &item : object)
-            stream << std::setw(4) << std::fixed << std::setprecision(4) << std::left << item << ' ';
+            stream << std::setw(4) << std::fixed << std::setprecision(2) << std::left << item << ' ';
         stream << '\n';
     }
     else if constexpr(std::is_same_v<ValueType, std::vector<double>>)
@@ -99,4 +99,13 @@ std::ostream &operator<<(std::ostream &stream, const std::vector<ValueType> &obj
 
     return stream;
 }
+
+/*double GetNorm(const std::vector<double> &vector)
+{
+    return std::sqrt(std::accumulate(
+            std::cbegin(vector), std::cend(vector),
+            0.00,
+            [](const auto response, const auto current) { return response + current * current; }
+    ));
+}*/
 

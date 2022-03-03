@@ -1,19 +1,28 @@
 #include <iostream>
-#include <cfloat>
 #include "./Utils/utils.hpp"
 #include "./Data/data.hpp"
 #include "./Gauss/gauss.hpp"
 
 
-double GetNorm(const std::vector<double> &);
+void TestMyVariant();
+
+void TestOtherCases();
 
 
 int main()
 {
+    //TestMyVariant();
+    TestOtherCases();
+
+    return 0;
+}
+
+
+void TestMyVariant()
+{
     const auto accuracy{GetNumberOfSignsAfterDot(kAccuracy)};
     auto coefficients{kMatrixC * kOption + kMatrixD};
     const auto &free_coefficients{kVectorB};
-
 
     try
     {
@@ -36,22 +45,46 @@ int main()
         coefficients.at(4).at(2) -= 0.01;
 
         auto sol_with_error{SolveByGauss(coefficients, free_coefficients, GaussSolvingType::kSchemeOfFullSelection)};
-        std::cout << GetNorm(sol_with_error - full_select) << '\n';
+        //std::cout << GetNorm(sol_with_error - full_select) << '\n';
     }
     catch (const std::exception &exception)
     {
         std::cout << exception.what();
     }
-
-    return 0;
 }
 
 
-double GetNorm(const std::vector<double> &vector)
+void TestOtherCases()
 {
-    return std::sqrt(std::accumulate(
-            std::cbegin(vector), std::cend(vector),
-            0.00,
-            [](const auto response, const auto current) { return response + current * current; }
-    ));
+    auto solution{SolveByGauss({{3, 2},
+                                {1, 4}}, {1, -3}, GaussSolvingType::kSchemeOfTheOnlyDivision)};
+    std::cout << "---------------\nSolution: " << solution << '\n';
+
+    solution = SolveByGauss({{1, 1,  1},
+                             {2, -1, -6},
+                             {3, -2, 0}}, {2, -1, 8}, GaussSolvingType::kSchemeOfPartialSelection);
+    std::cout << "---------------\nSolution: " << solution << '\n';
+
+    solution = SolveByGauss({{1, 2, 3, 4},
+                             {2, 1, 2, 3},
+                             {3, 2, 1, 2},
+                             {4, 3, 2, 1}},
+                            {7, 6, 7, 18},
+                            GaussSolvingType::kSchemeOfPartialSelection);
+    std::cout << "---------------\nSolution: " << solution << '\n';
+
+    try
+    {
+        solution = SolveByGauss({{1, 3, -2, -2},
+                                 {-1, -2, 1, 2},
+                                 {-2, -1, 3, 1},
+                                 {-3, -2, 3, 3}},
+                                {-3, 2, -2, -1},
+                                GaussSolvingType::kSchemeOfFullSelection);
+        std::cout << "---------------\nSolution: " << solution << '\n';
+    }
+    catch (const std::exception &exception)
+    {
+        std::cout << "---------------\n" << exception.what();
+    }
 }

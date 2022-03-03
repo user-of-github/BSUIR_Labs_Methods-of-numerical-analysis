@@ -51,7 +51,7 @@ std::vector<std::vector<double>> ExpressMainVariables(const std::vector<std::vec
 double GetError(const std::vector<double> &current_variables_set,
                 const std::vector<double> &previous_variables_set)
 {
-    double error{0.00};
+    auto error{0.00};
     for (std::size_t counter = 0; counter < current_variables_set.size(); ++counter)
         error = std::max(error, std::abs(current_variables_set.at(counter) - previous_variables_set.at(counter)));
     return error;
@@ -71,7 +71,7 @@ SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficient
     const auto check_error([](const std::vector<double> &current_variables_set,
                               const std::vector<double> &previous_variables_set,
                               const double epsilon) -> bool {
-        return GetError(current_variables_set, previous_variables_set) <= std::abs(epsilon);
+        return GetError(current_variables_set, previous_variables_set) >= std::abs(epsilon);
     });
 
     const auto copy_vectors([](const std::vector<double> &from, std::vector<double> &to) -> void {
@@ -89,8 +89,7 @@ SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficient
 
     auto previous_iteration{initial_values}; // предыдущая i-я итерация
     auto current_iteration{initial_values}; // текущая i+1-я итерация
-    const auto variables_expressions{
-            ExpressMainVariables(main_coefficients, free_coefficients)}; // выраженные переменные с главной диагонали
+    const auto variables_expressions{ExpressMainVariables(main_coefficients, free_coefficients)}; // выраженные переменные с главной диагонали
 
     std::size_t iterations_count{0};
     do
@@ -105,7 +104,7 @@ SolveBySimpleIterations(const std::vector<std::vector<double>> &main_coefficient
             );
             ++counter;
         }
-    } while (!check_error(current_iteration, previous_iteration, epsilon));
+    } while (check_error(current_iteration, previous_iteration, epsilon));
 
     return {current_iteration, iterations_count};
 }

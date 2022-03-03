@@ -51,7 +51,6 @@ std::ostream &operator<<(std::ostream &stream, const std::vector<ValueType> &obj
     {
         for (const auto &item : object)
             stream << item << ' ';
-        stream << '\n';
     }
     else if constexpr(std::is_same_v<ValueType, std::vector<double>>)
     {

@@ -1,11 +1,9 @@
-#pragma once
-
 #include "gauss.hpp"
 
 
 bool IsNear(const double a, const double b)
 {
-    return std::abs(a - b) < 0.000001;
+    return std::abs(a - b) < 0.0001;
 }
 
 std::vector<std::vector<double>> GetFullSystemMatrix(const std::vector<std::vector<double>> &main_coefficients,
@@ -65,7 +63,8 @@ std::vector<std::size_t> Triangulate(std::vector<std::vector<double>> &full_matr
             {
                 variables_excluding_order.push_back(row);
                 if (IsNear(full_matrix.at(row).at(row), 0.0))
-                    throw std::runtime_error("Error: Main diagonal element = 0");
+                    throw std::runtime_error(
+                            "The system is incompatible (or can't be solved by scheme of only division)");
                 for (std::size_t lower_row = row + 1; lower_row < full_matrix.size(); ++lower_row)
                 {
                     const auto ratio{full_matrix.at(lower_row).at(row) / full_matrix.at(row).at(row)};
@@ -81,7 +80,7 @@ std::vector<std::size_t> Triangulate(std::vector<std::vector<double>> &full_matr
                 variables_excluding_order.push_back(row);
 
                 if (IsNear(full_matrix.at(row).at(row), 0.0))
-                    throw std::runtime_error("Error: Main diagonal element = 0");
+                    throw std::runtime_error("The system is incompatible");
 
                 for (std::size_t lower_row = row + 1; lower_row < full_matrix.size(); ++lower_row)
                 {
@@ -99,7 +98,7 @@ std::vector<std::size_t> Triangulate(std::vector<std::vector<double>> &full_matr
                 swap_rows(row_with_max, row);
 
                 if (IsNear(full_matrix.at(row).at(col_with_max), 0.0))
-                    throw std::runtime_error("Error: Main element = 0");
+                    continue;
 
                 for (std::size_t lower_row = row + 1; lower_row < full_matrix.size(); ++lower_row)
                 {
@@ -143,10 +142,12 @@ std::vector<double> SolveByGauss(const std::vector<std::vector<double>> &main_co
 {
     auto to_triangulate{GetFullSystemMatrix(main_coefficients, free_coefficients)};
 
+    std::cout << "Source full system matrix:\n" << to_triangulate ;
+
     auto excluding_order{Triangulate(to_triangulate, solution_type)};
     std::reverse(std::begin(excluding_order), std::end(excluding_order));
 
-    std::cout << to_triangulate;
+    std::cout << "Triangulated matrix:\n" << to_triangulate;
 
     const auto last_row_variables_count = std::accumulate(
             std::cbegin(to_triangulate.back()),
@@ -156,7 +157,7 @@ std::vector<double> SolveByGauss(const std::vector<std::vector<double>> &main_co
                 return IsNear(current, 0.0) ? response : response + 1;
             });
 
-    if (last_row_variables_count >= 2)
+    if (last_row_variables_count >= 2 || last_row_variables_count == 0)
         throw std::runtime_error("System has infinite number of solutions");
 
     auto response{GetSolutionByBackSubstitution(to_triangulate, excluding_order)};
