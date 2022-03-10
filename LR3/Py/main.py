@@ -1,11 +1,8 @@
-from sturm import get_number_of_roots_by_sturm_theorem
-import data
+from test_run import test_run
 
 
 def main() -> None:
-    equation: list = [1.00, data.A, data.B, data.C]
-
-    get_number_of_roots_by_sturm_theorem(equation)
+    test_run()
 
 
 if __name__ == '__main__':
