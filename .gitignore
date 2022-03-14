@@ -1,24 +1,17 @@
-*/.idea
+.idea/
 */cmake-build-debug
-cmake-build-debug
-/cmake-build-debug
+
 cmake-build-debug/
 
 .vscode
 /.vscode
 .vscode/
 
-build
-/build
-/build
+build/
 
-/CMakeFiles
 CMakeFiles/
-CMakeFiles
 
 cmake-build-debug-coverage/
-/cmake-build-debug-coverage
-cmake-build-debug-coverage
 
 *.exe
 *.o
@@ -38,27 +31,20 @@ cmake-build-debug-coverage
 .zip
 *.zip
 
+*.rar
+.rar
+
 CMakeCache.txt
 ./CMakeCache.txt
 */CMakeCache.txt
 
-gtestbadge
-/gtestbadge
 gtestbadge/
 
-/Testing
-Testing
 Testing/
 
-venv
 venv/
-/venv
 
-/.idea
-.idea
 .idea/
 
-__pycache__
-/__pycache__
 __pycache__/
 
