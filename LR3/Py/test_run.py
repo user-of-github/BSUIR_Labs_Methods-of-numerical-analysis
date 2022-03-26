@@ -10,14 +10,16 @@ def test_run(equation: list, range_from: float, range_to: float, error: float) -
     print(f'According Sturm\'s theorem there are {number_of_roots} roots on range [{range_from} .. {range_to}]\n')
 
     # The following values are taken from chart (Maple)
-    look_for_from: float = -0.8
-    look_for_to: float = -0.05
+    look_for_from: float = -1
+    look_for_to: float = 1
 
     root, iterations_count = get_root_by_half_division(equation, look_for_from, look_for_to, error)
     print(f'[Half-division-method]: Got x = {root} | Needed {iterations_count} iterations')
 
+    root, iterations_count = get_root_by_newton_method(equation, look_for_from, look_for_to, error)
+    print(f'[Newton-method]: Got x = {root} | Needed {iterations_count} iterations')
+
     root, iterations_count = get_root_by_chord_method(equation, look_for_from, look_for_to, error)
     print(f'[Chord-method]: Got x = {root} | Needed {iterations_count} iterations')
 
-    root, iterations_count = get_root_by_newton_method(equation, look_for_from, look_for_to, error)
-    print(f'[Newton-method]: Got x = {root} | Needed {iterations_count} iterations')
+

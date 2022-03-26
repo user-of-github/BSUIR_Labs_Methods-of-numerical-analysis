@@ -27,6 +27,8 @@ cmake-build-debug-coverage/
 *.OVL
 *.TR
 *.TD
+*.tmp
+.tmp
 
 .zip
 *.zip
