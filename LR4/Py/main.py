@@ -1,5 +1,3 @@
-import sympy
-
 import data
 from demo import demonstrate
 

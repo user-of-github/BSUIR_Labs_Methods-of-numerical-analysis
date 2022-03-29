@@ -3,22 +3,17 @@ import copy
 import sympy
 
 
-def get_jacobi_matrix(system: tuple, variables_list: list) -> list[list]:
-    response: list = list()
+def get_jacobi_matrix(system: tuple, variables_list: list) -> sympy.Matrix:
+    response: sympy.Matrix = sympy.Matrix([[0, 0], [0, 0]])
 
-    for equation in system:
-        new_row: list = list()
-
-        for variable in variables_list:
-            print(equation, variable)
-            new_row.append(sympy.diff(equation, variable))
-
-        response.append(new_row)
+    for row_index, equation in enumerate(system):
+        for col_index, variable in enumerate(variables_list):
+            response[row_index, col_index] = sympy.diff(equation, variable)
 
     return response
 
 
-def get_norm_of_root_vectors_difference(first: list[float], second: list[float]) -> float:
+def get_norm_of_root_vectors_difference(first: sympy.Matrix, second: sympy.Matrix) -> float:
     max_difference: float = 0
 
     for counter in range(len(first)):
@@ -27,32 +22,31 @@ def get_norm_of_root_vectors_difference(first: list[float], second: list[float])
     return max_difference
 
 
-def fill_subs_for_function(variables_list: list, previous_iteration_roots: list[float]) -> list[tuple]:
-    response: list[tuple] = list()
-
-    for counter in range(len(variables_list)):
-        print(variables_list[counter], previous_iteration_roots[counter])
-        response.append((variables_list[counter], previous_iteration_roots[counter]))
-
-    return response
-
-
 def solve_non_linear_system_by_newton_method(system: tuple, variables_list: list, epsilon: float) -> list:
-    jacobi_matrix: list[list] = get_jacobi_matrix(system[0], variables_list)
+    matrix: sympy.Matrix = sympy.Matrix(list(system[0]))
+    jacobi_matrix: sympy.Matrix = get_jacobi_matrix(system[0], variables_list)
 
-    previous_iteration_roots: list[float] = list(system[2])
-    current_iteration_roots: list[float] = list(system[2])
+    current_iteration: sympy.Matrix = sympy.Matrix([*system[1]])
+    sympy.Matrix([*system[1]])
+
+    difference: float = 1.00
     iterations_count: int = 0
 
-    difference: float = 1
-
     while difference > epsilon:
-        previous_iteration_roots = list(copy.copy(current_iteration_roots))
-        variables_and_values: list[tuple] = fill_subs_for_function(variables_list, previous_iteration_roots)
-        current_iteration_roots[0] = system[1][0].subs(variables_and_values)
-        current_iteration_roots[1] = system[1][1].subs(variables_and_values)
-        print(variables_and_values)
-        difference = get_norm_of_root_vectors_difference(current_iteration_roots, previous_iteration_roots)
+        previous_iteration: sympy.Matrix = sympy.Matrix(current_iteration)
+
+        current_iteration = previous_iteration - jacobi_matrix.subs({
+            variables_list[0]: previous_iteration[0],
+            variables_list[1]: previous_iteration[1]
+        }).inv(method='LU') * matrix.subs({
+            variables_list[0]: previous_iteration[0],
+            variables_list[1]: previous_iteration[1]
+        })
+
+        difference = get_norm_of_root_vectors_difference(current_iteration, previous_iteration)
         iterations_count += 1
 
-    return current_iteration_roots
+    print(current_iteration)
+    print(iterations_count)
+
+    return []
