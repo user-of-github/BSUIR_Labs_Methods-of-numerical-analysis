@@ -1,6 +1,5 @@
-import copy
-
 import sympy
+from system_solvers.general_utils import get_norm_of_root_vectors_difference
 
 
 def get_jacobi_matrix(system: tuple, variables_list: list) -> sympy.Matrix:
@@ -13,16 +12,7 @@ def get_jacobi_matrix(system: tuple, variables_list: list) -> sympy.Matrix:
     return response
 
 
-def get_norm_of_root_vectors_difference(first: sympy.Matrix, second: sympy.Matrix) -> float:
-    max_difference: float = 0
-
-    for counter in range(len(first)):
-        max_difference = max(max_difference, abs(first[counter] - second[counter]))
-
-    return max_difference
-
-
-def solve_non_linear_system_by_newton_method(system: tuple, variables_list: list, epsilon: float) -> list:
+def solve_non_linear_system_by_newton_method(system: tuple, variables_list: list, epsilon: float) -> (sympy.Matrix, int):
     matrix: sympy.Matrix = sympy.Matrix(list(system[0]))
     jacobi_matrix: sympy.Matrix = get_jacobi_matrix(system[0], variables_list)
 
@@ -46,7 +36,4 @@ def solve_non_linear_system_by_newton_method(system: tuple, variables_list: list
         difference = get_norm_of_root_vectors_difference(current_iteration, previous_iteration)
         iterations_count += 1
 
-    print(current_iteration)
-    print(iterations_count)
-
-    return []
+    return current_iteration, iterations_count
