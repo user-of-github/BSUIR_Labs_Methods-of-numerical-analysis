@@ -101,10 +101,11 @@ def prettify_response(eigenvalues: list[float], eigenvectors: list[list[float]])
             vector[counter] = round(vector[counter], data.ACCURACY)
 
 
-# list with eigen values + list with eigen vectors
-def get_eigen_values_and_vectors_by_jacobi_method(source: np.matrix, error: float) -> (list[float], list):
+# returns (list with eigen values + list with eigen vectors + number of iterations)
+def get_eigen_values_and_vectors_by_jacobi_method(source: np.matrix, error: float) -> (list[float], list, int):
     matrix: np.matrix = np.matrix(source)
     for_eigenvectors: list[np.matrix] = list()
+    iterations_count: int = 0
 
     while get_sum_of_squares_of_non_diagonal_elements(matrix) > error:
         row_max, col_max = find_max_absolute_non_diagonal_element(matrix)
@@ -116,9 +117,11 @@ def get_eigen_values_and_vectors_by_jacobi_method(source: np.matrix, error: floa
 
         for_eigenvectors.append(rotation_matrix)
 
+        iterations_count += 1
+
     eigenvalues: list[float] = get_total_eigenvalues_of_totally_rotated_matrix(matrix)
     eigenvectors: list[list[float]] = get_total_eigenvectors(for_eigenvectors)
 
     prettify_response(eigenvalues, eigenvectors)
 
-    return eigenvalues, eigenvectors
+    return eigenvalues, eigenvectors, iterations_count
