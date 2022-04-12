@@ -17,3 +17,5 @@ D: list[list[float]] = [
 VARIANT: range = range(1, 15)
 
 ERROR: float = 0.0001
+
+ACCURACY: int = 5
