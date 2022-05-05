@@ -14,14 +14,3 @@ def get_y(option: int) -> list[float]:
         response.append(P[counter] + ((-1) ** option) * M[option])
 
     return response
-
-
-def get_points(option: int) -> list[tuple[float, float]]:
-    response: list[tuple[float, float]] = list()
-
-    Ys: list[float] = get_y(option)
-
-    for counter in range(len(X)):
-        response.append((X[counter], Ys[counter]))
-
-    return response
