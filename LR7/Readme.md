@@ -9,7 +9,11 @@ _(уже после совмещения кубических полиномов
 
 ![variant 1](variant1.PNG)  
 &nbsp;   
-![variant 5](variant5.PNG)  
+![variant 5](variant5.PNG)
+
+
+### Для вариантов 1, 5 значение функции и значение сплайна в заданной точке отличаются на:  
+![differences](difference.PNG)
 &nbsp;  
 
 ###### Copyright ©  May, 2022

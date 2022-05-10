@@ -100,7 +100,7 @@ def extract_main_and_free_coefficients(matrix: list[list[float]]) -> tuple[list[
     return main_coefficients, free_coefficients
 
 
-def get_cubic_splines_coefficients(function, nodes_count: int, interval: tuple[float, float]) -> list[list]:
+def get_cubic_splines_coefficients(function, nodes_count: int, interval: tuple[float, float]) -> (list[list], list):
     x_array: list[float] = get_nodes_array(interval, nodes_count)
 
     y_array: list[float] = get_functions_values(function, x_array)
@@ -133,7 +133,20 @@ def get_cubic_splines_coefficients(function, nodes_count: int, interval: tuple[f
 
     matrix.append(conditions[0])
     matrix.append(conditions[1])
-  
+
     result = list(numpy.linalg.linalg.solve(*extract_main_and_free_coefficients(matrix)))
 
-    return result
+    return result, x_array
+
+
+def count_value_of_spline_in_point(splines: list[list[float]], point: float, x_array: list[float]) -> float:
+    interval_number: int = 0
+
+    for counter in range(1, len(x_array)):
+        if x_array[counter - 1] <= point <= x_array[counter]:
+            interval_number = counter - 1
+            break
+
+    row = splines[interval_number * 4:interval_number * 4 + 4]
+
+    return row[0] * (point ** 3) + row[1] * (point ** 2) + row[2] * point + row[3]
