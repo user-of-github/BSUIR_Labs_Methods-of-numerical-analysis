@@ -1,11 +1,4 @@
-import matplotlib.pyplot as plt
-import pandas
-import pandas as pd
-import numpy
-from tabulate import tabulate
-
-
-def koshi_by_adams(funct, interval: tuple, step: float, initial: tuple, a, m) -> list[tuple]:
+def koshi_by_adams_explicit(funct, interval: tuple, step: float, initial: tuple, a, m) -> tuple[list, list]:
     f: list[float] = list()
     x: list[float] = list()
     y: list[float] = list()
@@ -30,27 +23,4 @@ def koshi_by_adams(funct, interval: tuple, step: float, initial: tuple, a, m) ->
         x.append(x[counter - 1] + step)
         y.append(y[counter - 1] + step * (1.5 * funct(x[counter - 1], y[counter - 1], a, m) - 0.5 * funct(x[counter - 2], y[counter - 2], a, m)))
 
-    print(x)
-    print(y)
-
-    plt.plot(x, y, mew=2, ms=10)
-    plt.show()
-
-    #df = pandas.DataFrame({"x": x, "y": y})
-    #print(df)
-
-    xx = numpy.array(x)
-    yy = numpy.array(y)
-
-    col_headers = ["x", "y"]
-
-    merged_array = numpy.array([xx, yy]).T
-
-    table = tabulate(merged_array, col_headers, tablefmt="fancy_grid", floatfmt=".2f")
-
-    print(table)
-
-
-    response: list[tuple[float, float]] = list()
-
-    return response
+    return x, y
