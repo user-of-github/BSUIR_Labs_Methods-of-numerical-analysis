@@ -8,13 +8,13 @@ import numpy as np
 
 # the quadratic norm. You can change to another
 def get_norm(values: list[float], step: float) -> float:
-    # summ: float = 0.0
-    #
-    # for value in values:
-    #     summ += value * value * step
-    #
-    # return math.sqrt(summ)
-    return max(*values)
+    summ: float = 0.0
+
+    for value in values:
+        summ += value * value * step
+
+    return math.sqrt(summ)
+    #return max(*values) --- usual norm ( simple :) )
 
 
 # returns array for x, array for y and NORM for such grid function
@@ -25,9 +25,9 @@ def get_1_task_solution_with_number_of_dots(n: int, a: float, b: float, interval
 
     b: float = step * step * (-1) / a
     # vector of free coefficients (including initial conditions for y(a) and y(b))
-    free_coefficients_array: list[float] = [b] * (n + 1)
-    free_coefficients_array[0] = initials[0]
-    free_coefficients_array[-1] = initials[1]
+    free_coefficients: list[float] = [b] * (n + 1)
+    free_coefficients[0] = initials[0]
+    free_coefficients[-1] = initials[1]
 
     # matrix of main coefficients
     main_coefficients: list[list[float]] = [[0] * (n + 1)]
@@ -56,7 +56,7 @@ def get_1_task_solution_with_number_of_dots(n: int, a: float, b: float, interval
     #pprint.pprint(main_coefficients)
     #pprint.pprint(free_coefficients_array)
 
-    y_array: list[float] = list(np.linalg.solve(main_coefficients, free_coefficients_array))
+    y_array: list[float] = list(np.linalg.solve(main_coefficients, free_coefficients))
 
     #№plt.plot(x_array, y_array, mew=2, ms=10)
     #plt.show()
@@ -64,7 +64,7 @@ def get_1_task_solution_with_number_of_dots(n: int, a: float, b: float, interval
     return x_array, y_array, get_norm(y_array, step)
 
 
-def get_1_task_solution(a: float, b: float, epsilon: float, interval: tuple[float, float], initials: tuple[float, float]) -> list:
+def get_1_task_solution(a: float, b: float, epsilon: float, interval: tuple[float, float], initials: tuple[float, float]) -> None:
     number_of_ranges: int = 3
 
     first_solution = get_1_task_solution_with_number_of_dots(number_of_ranges, a, b, interval, initials)
