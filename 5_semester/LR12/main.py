@@ -1,6 +1,7 @@
 import math
 from task1 import get_1_task_solution
 from task2 import get_2_task_solution
+from task3 import get_3_task_solution
 
 
 def solve_task1() -> None:
@@ -19,10 +20,15 @@ def solve_task2() -> None:
     get_2_task_solution(epsilon, Ua, Ub, interval)
 
 
+def solve_task3() -> None:
+    epsilon: float = 0.01
+    get_3_task_solution(epsilon)
+
+
 def main() -> None:
     #solve_task1()
-    solve_task2()
-    pass
+    #solve_task2()
+    solve_task3()
 
 
 if __name__ == '__main__':
