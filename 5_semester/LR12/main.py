@@ -2,6 +2,7 @@ import math
 from task1 import get_1_task_solution
 from task2 import get_2_task_solution
 from task3 import get_3_task_solution
+from task4 import get_4_task_solution
 
 
 def solve_task1() -> None:
@@ -25,10 +26,17 @@ def solve_task3() -> None:
     get_3_task_solution(epsilon)
 
 
+def solve_task4() -> None:
+    epsilon: float = 0.001
+    get_3_task_solution(epsilon)
+
+
+
 def main() -> None:
     #solve_task1()
     #solve_task2()
-    solve_task3()
+    #solve_task3()
+    solve_task4()
 
 
 if __name__ == '__main__':
